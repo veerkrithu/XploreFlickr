@@ -9,6 +9,12 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="AvenirNext.ttc">
+            <string>AvenirNext-DemiBold</string>
+            <string>AvenirNext-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Photo Gallery-->
         <scene sceneID="tne-QT-ifu">
@@ -79,7 +85,99 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="456.80000000000001" y="117.39130434782609"/>
+            <point key="canvasLocation" x="-230" y="116"/>
+        </scene>
+        <!--Flickr Gallery-->
+        <scene sceneID="q9m-Gk-dtu">
+            <objects>
+                <viewController id="wlG-tl-0Mi" customClass="XFListViewController" customModule="XploreFlickr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CAi-fS-oMp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ml2-Z2-GvL">
+                                <rect key="frame" x="16" y="75" width="343" height="581"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" red="0.20965845599999999" green="0.62104883639999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="XFListViewCellID" rowHeight="103" id="KCG-LW-Dpv" customClass="XFListViewCell" customModule="XploreFlickr" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="103"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KCG-LW-Dpv" id="bVf-hH-cuq">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="102.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="DHe-6J-hhn" userLabel="LabelStack">
+                                                    <rect key="frame" x="72" y="13.5" width="250" height="75.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URB-rp-V30">
+                                                            <rect key="frame" x="0.0" y="0.0" width="250" height="20.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="20.5" id="gwu-L3-pYT"/>
+                                                                <constraint firstAttribute="width" constant="250" id="vRQ-lu-0JP"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="18"/>
+                                                            <color key="textColor" red="0.20965845599999999" green="0.62104883639999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVD-qg-S1M">
+                                                            <rect key="frame" x="0.0" y="25.5" width="250" height="50"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="250" id="8YD-eS-tBx"/>
+                                                                <constraint firstAttribute="height" constant="50" id="j5e-fF-ihS"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                                            <color key="textColor" red="0.20965845599999999" green="0.62104883639999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uzA-Ie-iW6" customClass="XFRoundImageView" customModule="XploreFlickr" customModuleProvider="target">
+                                                    <rect key="frame" x="12" y="24" width="55" height="55"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="55" id="6Ae-QK-zwh"/>
+                                                        <constraint firstAttribute="height" constant="55" id="8lb-1z-1xp"/>
+                                                        <constraint firstAttribute="width" constant="55" id="kvd-0v-0Fg"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="uzA-Ie-iW6" firstAttribute="leading" secondItem="bVf-hH-cuq" secondAttribute="leading" constant="12" id="1WL-Oh-Gj4"/>
+                                                <constraint firstItem="DHe-6J-hhn" firstAttribute="centerY" secondItem="bVf-hH-cuq" secondAttribute="centerY" id="6Xw-dh-Sbf"/>
+                                                <constraint firstAttribute="trailing" secondItem="DHe-6J-hhn" secondAttribute="trailing" constant="21" id="JdX-ao-jhf"/>
+                                                <constraint firstItem="DHe-6J-hhn" firstAttribute="leading" secondItem="uzA-Ie-iW6" secondAttribute="trailing" constant="5" id="aB2-xW-Nvc"/>
+                                                <constraint firstItem="uzA-Ie-iW6" firstAttribute="centerY" secondItem="bVf-hH-cuq" secondAttribute="centerY" id="eeP-TP-h8J"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="descLable" destination="EVD-qg-S1M" id="7UH-CZ-SH5"/>
+                                            <outlet property="thumbView" destination="uzA-Ie-iW6" id="AMG-NR-q3C"/>
+                                            <outlet property="titleLabel" destination="URB-rp-V30" id="c2F-fu-MSh"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Yeh-NE-5Hm" firstAttribute="bottom" secondItem="ml2-Z2-GvL" secondAttribute="bottom" constant="11" id="2Va-1f-iws"/>
+                            <constraint firstItem="ml2-Z2-GvL" firstAttribute="centerY" secondItem="Yeh-NE-5Hm" secondAttribute="centerY" id="A0o-T0-C7K"/>
+                            <constraint firstItem="ml2-Z2-GvL" firstAttribute="top" secondItem="Yeh-NE-5Hm" secondAttribute="top" constant="11" id="RsP-vz-rMz"/>
+                            <constraint firstItem="ml2-Z2-GvL" firstAttribute="leading" secondItem="Yeh-NE-5Hm" secondAttribute="leading" constant="16" id="W1U-Q8-AcJ"/>
+                            <constraint firstItem="Yeh-NE-5Hm" firstAttribute="trailing" secondItem="ml2-Z2-GvL" secondAttribute="trailing" constant="16" id="fiW-bG-M27"/>
+                            <constraint firstItem="ml2-Z2-GvL" firstAttribute="centerX" secondItem="Yeh-NE-5Hm" secondAttribute="centerX" id="sik-RA-J1t"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Yeh-NE-5Hm"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Flickr Gallery" id="COy-FN-9fZ"/>
+                    <connections>
+                        <outlet property="galleryListView" destination="ml2-Z2-GvL" id="4Dl-8P-pir"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="XFPhotoGallerySegueID" id="ppA-oZ-3Sq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VW8-B9-Y4r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1095.2" y="115.59220389805098"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7bu-AT-5Pk">
@@ -89,15 +187,16 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iJb-90-89n">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.20965845599999999" green="0.62104883639999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="14b-dg-YQo"/>
+                        <segue destination="wlG-tl-0Mi" kind="relationship" relationship="rootViewController" id="9tp-sd-Rbd"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7eq-xJ-0yq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-247" y="117"/>
+            <point key="canvasLocation" x="-1990" y="116"/>
         </scene>
     </scenes>
 </document>

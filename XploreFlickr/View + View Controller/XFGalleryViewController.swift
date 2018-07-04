@@ -10,6 +10,8 @@ import UIKit
 
 class XFGalleryViewController: UIViewController {
     
+    public var galleryId: String? = nil
+    
     private static let kXFGalleryViewCellID = "XFGalleryViewCellID"
     private let xfGalleryViewModel = XFGalleryViewModel()
 
@@ -39,12 +41,14 @@ class XFGalleryViewController: UIViewController {
         }
     
         //Loading the default animals photo gallery from Flickr
-        xfGalleryViewModel.setupPhotoGallery()
+        if let id = galleryId {
+            xfGalleryViewModel.setupPhotoGallery(galleryId: id)
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        //Dispose of any resources that can be recreated.
     }
     
 
@@ -63,7 +67,11 @@ class XFGalleryViewController: UIViewController {
 //Extension to handle all collection view delegate methods
 extension XFGalleryViewController: UICollectionViewDelegate {
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let photoID = self.xfGalleryViewModel.galleryPhotos.value[indexPath.row].id
+        self.loadPhotoDetailView(forCollectionView: collectionView, andPhotoId: photoID)
+    }
 }
 
 //Extension to handle all collection view data source methods
@@ -80,7 +88,7 @@ extension XFGalleryViewController: UICollectionViewDataSource {
         
         let photo = xfGalleryViewModel.galleryPhotos.value[indexPath.row]
         
-        let imageLoadObj = AsyncImageLoad(withURL: photo.thumbnail)
+        let imageLoadObj = AsyncImageLoad(withURL: photo.thumbnail!)
         
         xfGalleryViewCell?.activityCntlr.startAnimating()
         imageLoadObj.loadImage { (image, error) in
@@ -99,5 +107,43 @@ extension XFGalleryViewController: UICollectionViewDataSource {
         }
         
         return xfGalleryViewCell!
+    }
+}
+
+extension XFGalleryViewController {
+    
+    func loadPhotoDetailView(forCollectionView collectionView: UICollectionView, andPhotoId photoId:String) {
+        
+        let xfImageDetailViewModel = XFImageDetailViewModel()
+        
+        let contentOffSet = collectionView.contentOffset
+        let width = collectionView.frame.width / 2
+        let height = collectionView.frame.height / 2
+        
+        let detailViewFrame = CGRect(x: width / 2, y: contentOffSet.y + (height / 2), width: width, height: height)
+        let deatilView = XFImageDetailView(frame: detailViewFrame)
+        deatilView.animateView(withDuration: 0.6, toSuperView: collectionView)
+        
+        xfImageDetailViewModel.downloadPhotoInfo(url: xfImageDetailViewModel.urlForPhotosInfo(id: photoId))
+        
+        xfImageDetailViewModel.photoDescModel.bind {(photoDescModel) in
+            
+            let id = self.xfGalleryViewModel.galleryPhotos.value.filter {(photoId.contains($0.id))}
+            let imageLoadObj = AsyncImageLoad(withURL: (id.first?.source)!)
+            
+            imageLoadObj.loadImage(imgData: { (image, error) in
+                
+                DispatchQueue.main.async {
+                    
+                    if error == nil {
+                        deatilView.imageView?.image = image
+                    }
+                    else
+                    {
+                        print(error!)
+                    }
+                }
+            })
+        }
     }
 }

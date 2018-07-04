@@ -1,5 +1,5 @@
 //
-//  XFGalleryListViewCell.swift
+//  XFListViewCell.swift
 //  XploreFlickr
 //
 //  Created by Ganesan, Veeramani - Contractor {BIS} on 6/13/18.
@@ -8,10 +8,14 @@
 
 import UIKit
 
-class XFGalleryListViewCell: UITableViewCell {
+class XFListViewCell: UITableViewCell {
     
-    private static let kXFGalleryListViewCellID = "XFGalleryListViewCellID"
+    private static let kXFListViewCellID = "XFListViewCellID"
 
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descLable: UILabel!
+    @IBOutlet weak var thumbView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

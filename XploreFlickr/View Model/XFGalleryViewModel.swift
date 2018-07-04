@@ -10,30 +10,29 @@ import UIKit
 
 class XFGalleryViewModel {
     
-    typealias DownloadCompletionHandler = (_ data: Data?, _ error: Error?)->Void
+    //PhotoModel gallery object in boxed for binding the UI for update. This supports MVVM architecture well.
+    var galleryPhotos: XFBox<[PhotoModel]> = XFBox([])
     
-    //Registered API key from Flickr
-    let apiKey = "e632db2f6334e3f98a2a3f0e9ac3b33b"
-    
-    //Photo gallery object in boxed for binding the UI for update. This supports MVVM architecture well.
-    var galleryPhotos: XFBox<[Photo]> = XFBox([])
-    
-    func setupPhotoGallery() {
+    func setupPhotoGallery(galleryId: String) {
         
-        let url = urlForPhotosfromGallery(id: "66911286-72157677539266623")
+        let url = urlForPhotosfromGallery(id: galleryId)
         downloadPhotosfromGallery(url: url)
     }
     
     //Function to retrieve url for photos from flickr gallery
     func urlForPhotosfromGallery(id: String)-> URL {
         
-        return URL(string:("https://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=\(self.apiKey)&gallery_id=\(id)&format=json&nojsoncallback=1"))!
+        let url = ServiceManager.getBaseUrl(withMethod: "flickr.galleries.getPhotos") + "&gallery_id=\(id)&format=json&nojsoncallback=1"
+        
+        return URL(string: url)!
     }
     
     //Function to retrieve url for photo size
     func urlForPhotoSize(id: String)->URL {
         
-        return URL(string:("https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=\(self.apiKey)&photo_id=\(id)&format=json&nojsoncallback=1"))!
+        let url = ServiceManager.getBaseUrl(withMethod: "flickr.photos.getSizes") + "&photo_id=\(id)&format=json&nojsoncallback=1"
+        
+        return URL(string: url)!
     }
 }
 
@@ -43,7 +42,7 @@ extension XFGalleryViewModel {
     //Method to load the parsed photo objects from photo gallery object. This includes the download of thumbnail and medium photo url from photo size flikcr service
     private func loadPhotos(items: [Any]) {
         
-        var values = [Photo]()
+        var values = [PhotoModel]()
         
         //Using dispatch group to notify the photo size download complete for all photos
         let group = DispatchGroup()
@@ -73,8 +72,10 @@ extension XFGalleryViewModel {
                         predicate = NSPredicate(format: "label like %@", "Medium")
                         let image = sizes.filter{ predicate.evaluate(with: $0)}.first as! [String : String]
                         
-                        //Construct the photo object from Photo structure
-                        let photo = Photo(id: String(describing: photoObj["id"]!), farm: String(describing: photoObj["farm"]!), owner: photoObj["owner"]! as! String, secret: String(describing: photoObj["secret"]!), server: String(describing: photoObj["server"]!), title: photoObj["title"]! as! String, thumbnail: thumbnail["source"]!, source: image["source"]!)
+                        //Construct the photo object from Photo Model structure
+                        let photo = PhotoModel(id: String(describing: photoObj["id"]!), farm: String(describing: photoObj["farm"]!), owner: photoObj["owner"] as! String, secret: String(describing: photoObj["secret"]!), server: String(describing: photoObj["server"]!), title: photoObj["title"] as! String, thumbnail: thumbnail["source"]!, source: image["source"]!)
+                        
+                        /*let photo = PhotoModel(id: String(describing: photoObj["id"]!), farm: String(describing: photoObj["farm"]!), owner: photoObj["owner"]! as! String, secret: String(describing: photoObj["secret"]!), server: String(describing: photoObj["server"]!), title: photoObj["title"]! as! String, thumbnail: thumbnail["source"]!, source: image["source"]!)*/
                         
                         values.append(photo)
                         
@@ -124,22 +125,26 @@ extension XFGalleryViewModel {
         
         DispatchQueue.global(qos: .background).async {
             
-            self.downloadDataWithUrl(url: url) { [unowned self] (data, error) in
+            let serviceManager = ServiceManager(withUrl: url)
+            
+            serviceManager.downloadData(withCompletionHandler: { [unowned self] (data, error) in
                 
                 guard let httpData = data else { return }
                 
                 guard let values = self.parsePhotosfromGallery(data: httpData) else { return }
                 
                 self.loadPhotos(items: values)
-            }
+            })
         }
     }
     
     //Method to download avaiable photo size asynchronously from Flickr service
     func downloadPhotoSize(url: URL, completionHandler:@escaping DownloadCompletionHandler) {
         
-        downloadDataWithUrl(url: url) {(data, error) in
-    
+        let serviceManager = ServiceManager(withUrl: url)
+        
+        serviceManager.downloadData { (data, error) in
+            
             if let httpData = data {
                 completionHandler(httpData, nil)
             }
@@ -147,30 +152,5 @@ extension XFGalleryViewModel {
                 completionHandler(nil, error)
             }
         }
-    }
-    
-    //Method to return error object based on given error message
-    private func errorForMessage(message: String)->Error {
-        
-        return NSError(domain: "com.Self.XploreFlickr", code: 0, userInfo: [NSLocalizedDescriptionKey: message])
-    }
-    
-    //Generic method to initiate download using url session in asynchronous mode. Once download completed completion handler closure will be invoked
-    private func downloadDataWithUrl(url: URL, completionHandler:@escaping DownloadCompletionHandler) {
-            
-        URLSession.shared.dataTask(with: url, completionHandler: { [unowned self] (data, response, error) in
-            
-            let httpResponse = response as? HTTPURLResponse
-            if httpResponse?.statusCode == 200 {
-                
-                if let httpData = data {
-                    completionHandler(httpData, nil)
-                }
-            }
-            else {
-                completionHandler(nil, self.errorForMessage(message: "Invalid Response"))
-            }
-            
-        }).resume()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ServiceManager+XFService.swift
+//  ServiceManager+FlickrService.swift
 //  XploreFlickr
 //
 //  Created by Ganesan, Veeramani - Contractor {BIS} on 6/17/18.
@@ -10,6 +10,7 @@ import Foundation
 
 extension ServiceManager {
     
+    //Registered API key from Flickr
     private static let apiKey = "20848af5ebf3371bb9fce1480a497dab"
     
     class func getBaseUrl(withMethod method: String) -> String {

@@ -1,5 +1,5 @@
 //
-//  XFServiceManager.swift
+//  ServiceManager.swift
 //  XploreFlickr
 //
 //  Created by Ganesan, Veeramani - Contractor {BIS} on 6/17/18.
@@ -8,9 +8,10 @@
 
 import Foundation
 
+typealias DownloadCompletionHandler = (_ data: Data?, _ error: Error?)->Void
+
 class ServiceManager {
     
-    typealias DownloadCompletionHandler = (_ data: Data?, _ error: Error?)->Void
     let url: URL?
     
     init(withUrl: URL) {

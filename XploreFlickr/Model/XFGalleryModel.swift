@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+struct GalleryModel {
+    
+    let id:             String
+    let title:          String
+    let description:    String
+    let thumbnail:            String
+}

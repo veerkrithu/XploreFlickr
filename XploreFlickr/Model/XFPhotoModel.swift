@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct Photo {
+struct PhotoModel {
     
-    let id:     String
-    let farm:   String
-    let owner:  String
-    let secret: String
-    let server: String
-    let title:  String
-    let thumbnail: String
-    let source: String
+    var id:         String
+    var farm:       String
+    var owner:      String
+    var secret:     String
+    var server:     String
+    var title:      String
+    var thumbnail:  String?
+    var source:     String?
 }

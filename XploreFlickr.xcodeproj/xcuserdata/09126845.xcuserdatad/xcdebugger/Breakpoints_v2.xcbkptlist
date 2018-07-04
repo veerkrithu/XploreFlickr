@@ -67,5 +67,69 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "XploreFlickr/View + View Controller/XFImageDetailView.swift"
+            timestampString = "551853588.8733439"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "zoomOut()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "XploreFlickr.XFImageDetailView.zoomOut() -&gt; ()"
+                  moduleName = "XploreFlickr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/09126845/Veera/Veera/Samples/XploreFlickr/XploreFlickr/View%20+%20View%20Controller/XFImageDetailView.swift"
+                  timestampString = "551842162.0563051"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "17">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in XploreFlickr.XFImageDetailView.zoomOut() -&gt; ()"
+                  moduleName = "XploreFlickr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/09126845/Veera/Veera/Samples/XploreFlickr/XploreFlickr/View%20+%20View%20Controller/XFImageDetailView.swift"
+                  timestampString = "551842162.059698"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "15">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "XploreFlickr/View + View Controller/XFImageDetailViewController.swift"
+            timestampString = "551592460.210703"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "loadView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
